@@ -29,6 +29,7 @@ if (isset($_GET['id'])) {
 // Proses Update Data
 if (isset($_POST['update'])) {
     $id = intval($_POST['id']); // ID harus disertakan dalam POST
+    $nama = mysqli_real_escape_string($koneksi, $_POST['nama_barang']);
     $jumlah = mysqli_real_escape_string($koneksi, $_POST['jumlah']);
     $satuan = mysqli_real_escape_string($koneksi, $_POST['satuan']);
     $keterangan = mysqli_real_escape_string($koneksi, $_POST['keterangan']);
@@ -36,7 +37,7 @@ if (isset($_POST['update'])) {
     // Query update data
     $query = "
         UPDATE m_stok
-        SET jumlah = '$jumlah', satuan = '$satuan', keterangan = '$keterangan'
+        SET nama_barang = '$nama', jumlah = '$jumlah', satuan = '$satuan', keterangan = '$keterangan'
         WHERE id = $id
     ";
 
@@ -66,6 +67,11 @@ if (isset($_POST['update'])) {
         <h1>Edit Data Stok</h1>
         <form action="edit_stok.php?id=<?= htmlspecialchars($data['id']) ?>" method="POST">
             <input type="hidden" name="id" value="<?= htmlspecialchars($data['id']) ?>"> <!-- Menyimpan ID -->
+
+            <div class="form-group">
+                <label for="satuan">Nama Barang:</label>
+                <input type="text" id="nama_barang" name="nama_barang" value="<?= htmlspecialchars($data['nama_barang']) ?>" required>
+            </div>
 
             <div class="form-group">
                 <label for="jumlah">Jumlah:</label>

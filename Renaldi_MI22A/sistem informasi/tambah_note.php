@@ -69,7 +69,7 @@ if (isset($_POST['tambah'])) {
             <button type="submit" name="tambah">Tambah</button>
         </form>
         <br>
-        <a href="catatan_note.php" class="btn btn-primary">Kembali</a>
+        <a href="catatan_transaksi.php" class="btn btn-primary">Kembali</a>
     </div>
 </body>
 </html>

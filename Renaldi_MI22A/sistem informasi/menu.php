@@ -12,6 +12,7 @@
         <a href="pelanggan.php" class="btn btn-primary">Data Pelanggan</a>
         <a href="stok.php" class="btn btn-primary">Data Stok</a>
         <a href="catatan_transaksi.php" class="btn btn-primary">Catatan Transaksi</a>
+        <a href="logout.php" class="btn btn-primary">Logout</a>
     <br><br>
 </body>
 </html>

@@ -2,20 +2,29 @@
 include 'db.php';
 include 'menu.php';
 
-// Query untuk mengambil semua data transaksi
+// Query untuk mendapatkan data stok
 $query = "
-SELECT id, jumlah, satuan, tanggal_masuk, keterangan
-FROM m_stok
-" ;
+    SELECT id, jumlah, satuan, tanggal_masuk, keterangan
+    FROM m_stok
+";
 
-// Menjalankan query
 $results = mysqli_query($koneksi, $query);
-
-// Cek jika query berhasil dijalankan
 if (!$results) {
     die("Query gagal: " . mysqli_error($koneksi));
 }
 
+// Query untuk menghitung total jumlah barang
+$query_total = "SELECT SUM(jumlah) AS total_barang_masuk FROM m_stok";
+$result_total = mysqli_query($koneksi, $query_total);
+
+if (!$result_total) {
+    die("Query gagal: " . mysqli_error($koneksi));
+}
+
+$total_barang_masuk = 0;
+if ($row_total = mysqli_fetch_assoc($result_total)) {
+    $total_barang_masuk = $row_total['total_barang_masuk'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +39,13 @@ if (!$results) {
     <h1>Data Stok</h1>
     <a href="tambah_stok.php" class="btn btn-primary">Tambah stok</a>
     <br><br>
+
+    <!-- Tampilkan total barang masuk -->
+    <div>
+        <h3>Total Barang Masuk</h3>
+        <p>Jumlah Total: <?= htmlspecialchars($total_barang_masuk) ?> <?= htmlspecialchars($row['satuan'] ?? '') ?></p>
+    </div>
+
     <table>
         <thead>
             <tr>
